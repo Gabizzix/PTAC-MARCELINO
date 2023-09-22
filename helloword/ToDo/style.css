@@ -1,0 +1,64 @@
+/* COR DE FUNDO */
+body {
+    background-color:#cecccc;
+      font-family: sans-serif;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 20%;
+      background-color: #b6b4b4;
+      padding: 50px;
+    }
+  
+    h1 {
+  
+      font-size: 20px;
+      margin-top: 0;
+      font-weight: bold;
+      color: #000000;
+  
+    }
+    
+    i {
+      
+      font-size: 12px;
+      margin-top: 0;
+      font-weight: bold;
+      color: #000000;
+    }
+    
+    
+    button {
+      background-color: #cecccc;
+      color: rgb(20, 255, 295);
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* MARGEM DE CIMA */
+  
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #9e9c9c;
+    }
+    
+    /* CENTRALIZAR A MARGEM DE CIMA */
+    li {
+      float: left;
+    }
+    
+    /* MANTER O FORMATO DA MARGEM DE CIMA */
+    li a {
+      display: block;
+      color: rgb(0, 0, 0);
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+   
