@@ -1,17 +1,18 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client'
 
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Todo from '.ToDo/Todo.jsx';
-import Home from '.Home/Home.jsx';
+import Todo from './ToDo/Todo.jsx'
+import Home from './Home/Home.jsx'
+import {Routes, Route, BrowserRouter} from "react-router-dom"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-      <Route path='/' element={<Home />}></Route>
-      <Route path='ToDo' element ={<Todo />}></Route>
-       </Routes>
+        
+        <Route path='/lista' element={<Todo/>}></Route>
+        <Route path='/' element={<Home/>}></Route>
+      </Routes>
     </BrowserRouter>
-  </React.StrictMode>
-);
+  </React.StrictMode>,
+)

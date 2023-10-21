@@ -1,81 +1,88 @@
-import { useState } from "react";
+import { useEffect,useState} from "react"; 
+import {Link} from "react-router-dom"; 
 import "./style.css";
-import { Link } from "react-router-dom"
+
 
 export default function ToDo() {
-  const [esmalte, setEsmalte] = useState("");
-  const [preco, setPreco] = useState("");
-  const [cd, setCd] = useState(1);
-  const [lista, setLista] = useState([]);
+    const listaLocalStorage = JSON.parse(localStorage.getItem("Lista"));
+    const [esmalte, setEsmalte] = useState("");
+    const [lista, setLista] = useState(listaLocalStorage || []);
+    const [quantidade, setQuantidade] = useState(1);
+    const [marca, setMarca] = useState("");
+    const [imagem, setImagem] = useState("");
 
-  const adicionarEsmalte = (e) => {
-    e.preventDefault();
-    setLista([...lista, {
-        esmalte: esmalte,
-        preco: preco,
-        cd: cd,
-      },
-    ]);
-
-    setEsmalte(esmal + 1);
-    setPreco(preco + 1);
-    setCd(cd + 1);
-  }
-
-  const removerEsmalte = (cd) => {
-    const listaNova = lista.filter((esmal) => esmal.cd !== cd);
-    setLista(listaNova);
-  };
-
-return (
-  
-    <div className="menu">
-      
-      <ul>
-
-    <li><a href="/home">HOME</a></li>
-    <li><a href="#Login">LOGIN</a></li>
-    <li><a href="Todo">TODO</a></li>
-
-
-      </ul><br></br>
-
-    <h1><center> LISTA DE ESMALTES </center></h1>
+    useEffect(() => {localStorage.setItem("Lista", JSON.stringify(lista))},[lista])
     
-    <form onSubmit={adicionarEsmalte}><h4>
-
-    {" "} Nome: {" "}
-
-    <imput value={esmalte} onChange={(e) => setEsmalte(e.target.value)} />
-    </h4>
-
-    <h4>
-    {" "} Preço{" "}
-      <imput
-      type="number"
-      value={preco}
-      onChange={(e) => setPreco(e.target.value)}/></h4>
-      <button>
+    const salvar = (e) =>{
+        e.preventDefault(); 
+        setLista([...lista, { 
+          esmalte:esmalte, quantidade:quantidade, marca:marca, imagem:imagem
+        }]); 
         
-    <i>ADICIONAR ESMALTES</i>
-    </button>
+        setEsmalte("")
+        setMarca("")
+        setImagem("")
+        setQuantidade(quantidade + 1)
+        console.log(lista)
+    };
 
-    </form>
-    {lista.map((esmal) => (
-    <div className="esmaltes" key={esmal.cd}>
-    <p>
-    {" "}
-    Nome: {esmal.esmal}, Preço: {esmal.esmal}, Código: {esmal.cd}
-    </p>
+    
+    const remover = (quantidade) => {
+        const lista2 = [];
+        lista.map((Lista) => {
+        if (Lista.quantidade !== quantidade) {
+        lista2.push(Lista);
+        }
+        });
+        setLista(lista2);
+    }
 
-    <button onClick={() => removerEsmalte(esmal.cd)}>
+    return (
+        <div class="container">
+            <Link to="/">
+                <center>Página Principal</center>
+            </Link>
 
-    <i>REMOVER</i>
-    </button>
+            <h1>
+                <center>𝐋𝐢𝐬𝐭𝐚 𝐝𝐞 𝐄𝐬𝐦𝐚𝐥𝐭𝐞𝐬!</center>
+            </h1>
 
-    </div>
-    ))}
-  </div>
-);
+            <form onSubmit={salvar}>
+            <input placeholder="Informe o nome do esmalte que deseja:"
+            type="text" 
+            value={imagem} onChange={(e)=>{setImagem(e.target.value)}}/>
 
+            <input placeholder="Qual cor de esmalte você deseja?" 
+            type="text" 
+            value={esmalte} onChange={(e)=>{setEsmalte(e.target.value)}}/>
+
+            <input placeholder="Qual sua preferência de marca do esmalte?" 
+            type="text" 
+            value={marca} onChange={(e)=>{setMarca(e.target.value)}}/>
+
+        <div>
+
+            <button class="add">Adicionar Esmalte</button>
+        </div>    
+        </form>
+
+            
+            {lista.map((esmal)=>
+        <div class="cardd" key={esmal.quantidade}>
+        <div class="card">
+        <div>
+
+            <img class="imagem" src={esmal.imagem}/>
+        </div>
+        <div>
+
+            <p class="titulo">{esmal.esmalte}</p>
+            <p><span>Marca:</span> {esmal.marca}</p>
+        </div>
+        </div>
+            <center><button class="remove" onClick={() => remover(esmal.quantidade)}>Remover</button></center>
+        </div>
+        )}
+        </div>
+    );
 }
